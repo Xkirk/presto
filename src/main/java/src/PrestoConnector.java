@@ -34,7 +34,6 @@ public class PrestoConnector {
             ResultSet rs = stmt.executeQuery(sql);
             ResultSetMetaData meta = rs.getMetaData();
             int columnCount = meta.getColumnCount();
-//            String result = "\"";
             for (int i = 1; i < columnCount + 1; i++) {
                 System.out.print(meta.getColumnName(i)+"\t");
             }
