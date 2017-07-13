@@ -1,32 +1,35 @@
 package src;
 
+
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 /**
  * Created by kirk on 2017/6/28.
  */
 public class PrestoConnector {
-    final static String HADOOP = "jdbc:presto://192.168.7.56:8055/hive/default";
-//    private static String schema = "";
-//    private static String sql = "";
-//    PrestoConnector(String sql,String schema){
-//        this.schema = schema;
-//        this.sql = sql;
-//    }
-//   static ArrayList<Object> objList=new ArrayList<Object>();
-
-
     public static String getConn(String catalog,String schema) throws Exception{
+
         Properties prop = new Properties();
-        prop.load(new FileInputStream("/home/xujing/jdbc.properties"));
-        String jdbcURL = prop.getProperty("jdbcURL");
+        prop.load(new FileInputStream("/mfw_rundata/presto/conf/conf.properties"));
+        String jdbcURL = prop.getProperty("presto_on_hadoop");
         return jdbcURL+"/"+catalog+"/"+schema;
     }
 
-    public static void prestoClient(String sql,String catalog,String schema,String user) throws Exception {
+
+    /**
+     *
+     * @param sql
+     * @param catalog
+     * @param schema
+     * @param user
+     * @return
+     * @throws Exception
+     */
+    public static ArrayList<HashMap> connectPresto(String sql,String catalog,String schema,String user) throws Exception {
         Class.forName("com.facebook.presto.jdbc.PrestoDriver");
         Connection connection = DriverManager.getConnection(getConn(catalog,schema), user, null);
         Statement stmt = connection.createStatement();
@@ -34,20 +37,18 @@ public class PrestoConnector {
             ResultSet rs = stmt.executeQuery(sql);
             ResultSetMetaData meta = rs.getMetaData();
             int columnCount = meta.getColumnCount();
-            for (int i = 1; i < columnCount + 1; i++) {
-                System.out.print(meta.getColumnName(i)+"\t");
-            }
-            System.out.println();
+            ArrayList<HashMap> rsList = new ArrayList<HashMap>();
             while (rs.next()) {
+                HashMap<String, String> rsMap = new HashMap<String, String>();
                 for (int i = 1; i < columnCount+1; i++) {
-                    System.out.print(rs.getString(i)+"\t");
+                    rsMap.put(meta.getColumnName(i),rs.getString(i));
                 }
-                System.out.println();
+                rsList.add(rsMap);
             }
             rs.close();
             connection.close();
+            return rsList;
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             throw e;
         }
 

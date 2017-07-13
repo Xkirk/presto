@@ -1,20 +1,25 @@
 package src;
 
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import src.com.mafengwo.PrestoResult;
 
+import java.util.HashMap;
 /**
  * Created by kirk on 2017/6/29.
  */
 public class Test {
     public static void main(String[] args) throws Exception{
-        String sql = "select hour,count(*) from server_event_parquet where dt='20170629' group by hour order by hour";
-//        ArrayList<Object> objList = PrestoConnector.prestoClient(args[0].toString());
-        PrestoConnector.prestoClient(args[0].toString(),"hive","default","xujing");
-
-//        for (Object obj:objList) {
-//            ResultSet rs = (ResultSet)obj;
-//            System.out.println(rs.getString(1)+":"+rs.getString(2));
-//        }
+        String sql = args[0].toString();
+        PrestoClient pc = new PrestoClient();
+        PrestoResult prestoresult = pc.query(sql,"xujing");
+        System.out.println("Status:"+prestoresult.getStatus());
+        if("failed".equals(prestoresult.getStatus())){
+            System.out.println("Exception:"+prestoresult.getException());
+            return;
+        }
+        System.out.println(prestoresult.getRsList().size()+"ROWS");
+        for (HashMap<String, String> rsMap:
+        prestoresult.getRsList()){
+            System.out.println("hour:"+rsMap.get("hour")+";"+"cnt:"+rsMap.get("_col1"));
+        }
     }
 }
