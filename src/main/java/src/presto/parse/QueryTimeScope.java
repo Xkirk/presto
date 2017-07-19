@@ -8,73 +8,55 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Created by kirk on 2017/7/13.
+ * Created by kirk on 2017/7/17.
  */
-public class TableNameParser {
-
-    public static List<String> tableList = new ArrayList<>();//SQL中所有将被查询的表的List
-    public static List<String> withTableList = new ArrayList<>();//SQL中自定义表的List
-
-
-
-
+public class QueryTimeScope {
+    private static List<String> dateScope = new ArrayList<>();
+    private static List<List<String>> dateScopeList = new ArrayList<>();
     public static void main(String[] args) {
         String sql = SQL.sql;
-        List<String> tblist = getTableName(sql);
-        for (String tableName :
-                tblist) {
-            System.out.println("QueryTableName:"+tableName);
-        }
-        System.out.println("=============================");
-        List<String> withTbLs = getWithTableNameBySQL(sql);
-        for (String withTbNm :
-                withTbLs) {
-            System.out.println("WithTableName:"+withTbNm);
-        }
-
-    }
-    /**
-     * 从SQL中获取所有自定义表的List
-     *
-     * @param sql
-     */
-    private static List<String> getWithTableNameBySQL(String sql) {
-        SqlParser parser = new SqlParser();
-        Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
-        if (query != null) {
-            Optional<With> with = query.getWith();
-            parseWithTable(with);
-        }
-        return withTableList;
-    }
-
-    /**
-     * 从With中获取所有自定义表的List
-     *
-     * @param with
-     */
-    private static void parseWithTable(Optional<With> with) {
-        if (with.isPresent()) {
-            List<WithQuery> queries = with.get().getQueries();
-            for (WithQuery withQuery : queries) {
-                withTableList.add(withQuery.getName());
-            }
-        }
-    }
-    /**
-     *
-     * @param sql
-     * @return
-     */
-    public static List<String> getTableName(String sql) {
         SqlParser parser = new SqlParser();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
         if (query != null) {
             parseQuery(query);
         }
-        return tableList;
     }
 
+    /**
+     * 解析Query
+     * @param query
+     */
+    private static void parseQuery(Query query) {
+        QueryBody queryBody = query.getQueryBody();
+        if (queryBody != null) {
+            parseQueryBody(queryBody);
+        }
+        Optional<With> with = query.getWith();
+        if (with != null) {
+            parseWith(with);
+        }
+    }
+    /**
+     * 解析QueryBody
+     * @param queryBody
+     */
+    private static void parseQueryBody(QueryBody queryBody) {
+        if (queryBody instanceof QuerySpecification) {
+            QuerySpecification querySpecification = (QuerySpecification) queryBody;
+            Optional<Relation> from = querySpecification.getFrom();
+            if (from != null) {
+                parseFrom(from);
+            }
+            Optional<Expression> where = querySpecification.getWhere();
+            if (where != null) {
+                parseWhere(where);
+            }
+        }
+        if (queryBody instanceof Union) {
+            Union union = (Union) queryBody;
+            parseUnion(union);
+        }
+    }
     /**
      * 解析With中的内容
      *
@@ -98,19 +80,39 @@ public class TableNameParser {
         }
     }
     /**
-     * 解析Query
-     * @param query
+     * 解析From
+     * @param from
      */
-    private static void parseQuery(Query query) {
+    private static void parseFrom(Optional<Relation> from) {
+        if (from.isPresent()) {
+            Relation relation = from.get();
+            if (relation instanceof AliasedRelation) {
+                AliasedRelation aliasedRelation = (AliasedRelation) relation;
+                parseAliasedRelation(aliasedRelation);
+            }
+            if (relation instanceof Join) {
+                Join join = (Join) relation;
+                parseJoin(join);
+            }
+            if (relation instanceof TableSubquery) {
+                TableSubquery tableSubquery = (TableSubquery) relation;
+                parseTableSubQuery(tableSubquery);
+            }
+        }
+    }
+    /**
+     * 解析TableSubQuery
+     * @param tableSubquery
+     */
+    private static void parseTableSubQuery(TableSubquery tableSubquery) {
+        Query query = tableSubquery.getQuery();
         QueryBody queryBody = query.getQueryBody();
         if (queryBody != null) {
             parseQueryBody(queryBody);
         }
-        Optional<With> with = query.getWith();
-        if (with != null) {
-            parseWith(with);
-        }
     }
+
+
     /**
      * 解析Join下的内容
      * *******************|--类型是Table调用parseTable获取TableName
@@ -135,9 +137,6 @@ public class TableNameParser {
             parseJoinGetLeft((Join) aliasedLeft);
             parseJoinGetRight((Join) aliasedLeft);
         }
-        if (aliasedLeft instanceof Table) {
-            parseTable((Table) aliasedLeft);
-        }
 
         //调用getRight
         Relation aliasedRight = join.getRight();
@@ -149,11 +148,7 @@ public class TableNameParser {
             parseJoinGetLeft((Join) aliasedRight);
             parseJoinGetRight((Join) aliasedRight);
         }
-        if (aliasedRight instanceof Table) {
-            parseTable((Table) aliasedRight);
-        }
     }
-
     /**
      * 解析从Join getLeft接口返回的Join
      *
@@ -168,10 +163,6 @@ public class TableNameParser {
         if (relation instanceof AliasedRelation) {
             AliasedRelation aliasedRelation = (AliasedRelation) relation;
             parseAliasedRelation(aliasedRelation);
-        }
-        if (relation instanceof Table) {
-            Table table = (Table) relation;
-            parseTable(table);
         }
         if (relation instanceof Join) {
             Join nextLeft = (Join) relation;
@@ -193,10 +184,6 @@ public class TableNameParser {
             AliasedRelation aliasedRelation = (AliasedRelation) relation;
             parseAliasedRelation(aliasedRelation);
         }
-        if (relation instanceof Table) {
-            Table table = (Table) relation;
-            parseTable(table);
-        }
         if (relation instanceof Join) {
             Join nextRight = (Join) relation;
             parseJoin(nextRight);
@@ -210,10 +197,8 @@ public class TableNameParser {
      * @param union
      */
     public static void parseUnion(Union union) {
-
         List<Relation> relations = union.getRelations();
-        for (Relation relation :
-                relations) {
+        for (Relation relation : relations) {
             if (relation instanceof QuerySpecification) {
                 QuerySpecification querySpecification = (QuerySpecification) relation;
                 Optional<Relation> from = querySpecification.getFrom();
@@ -232,85 +217,15 @@ public class TableNameParser {
         }
     }
 
-    /**
-     * 解析From
-     * @param from
-     */
-    private static void parseFrom(Optional<Relation> from) {
-        if (from.isPresent()) {
-            Relation relation = from.get();
-            if (relation instanceof AliasedRelation) {
-                AliasedRelation aliasedRelation = (AliasedRelation) relation;
-                parseAliasedRelation(aliasedRelation);
-            }
-            if (relation instanceof Join) {
-                Join join = (Join) relation;
-                parseJoin(join);
-            }
-            if (relation instanceof TableSubquery) {
-                TableSubquery tableSubquery = (TableSubquery) relation;
-                parseTableSubQuery(tableSubquery);
-            }
-            if (relation instanceof Table) {
-                parseTable((Table) relation);
-            }
-        }
-    }
-
-    /**
-     * 解析TableSubQuery
-     * @param tableSubquery
-     */
-    private static void parseTableSubQuery(TableSubquery tableSubquery) {
-        Query query = tableSubquery.getQuery();
-        QueryBody queryBody = query.getQueryBody();
-        if (queryBody != null) {
-            parseQueryBody(queryBody);
-        }
-    }
-
-    /**
-     * 解析出Table通过getName()装载进tableList
-     * @param table
-     */
-    private static void parseTable(Table table) {
-        tableList.add(table.getName().toString());
-    }
-
-    /**
-     * 解析QueryBody
-     * @param queryBody
-     */
-    private static void parseQueryBody(QueryBody queryBody) {
-        if (queryBody instanceof QuerySpecification) {
-            QuerySpecification querySpecification = (QuerySpecification) queryBody;
-            Optional<Relation> from = querySpecification.getFrom();
-            if (from != null) {
-                parseFrom(from);
-            }
-            Optional<Expression> where = querySpecification.getWhere();
-            if (where != null) {
-                parseWhere(where);
-            }
-        }
-        if (queryBody instanceof Union) {
-            Union union = (Union) queryBody;
-            parseUnion(union);
-        }
-    }
 
     /**
      * 解析AliasedRelation
      *
-     * aliasedRelation|
+     * aliasedRelation
      *
      * @param aliasedRelation
      */
     private static void parseAliasedRelation(AliasedRelation aliasedRelation) {
-        if (aliasedRelation.getRelation() instanceof Table) {
-            Table table = (Table) aliasedRelation.getRelation();
-            parseTable(table);
-        }
         if (aliasedRelation.getRelation() instanceof TableSubquery) {
             TableSubquery tableSubquery = (TableSubquery) aliasedRelation.getRelation();
             parseTableSubQuery(tableSubquery);
@@ -325,10 +240,19 @@ public class TableNameParser {
         if (where.isPresent()) {
             Expression expression = where.get();
             if (expression instanceof LogicalBinaryExpression) {
+                LogicalBinaryExpression lgcBinExps = (LogicalBinaryExpression) expression;
+                Expression nextExpression = lgcBinExps.getLeft();
+                if (nextExpression instanceof Identifier ) {
+
+                }
 
             }
             if (expression instanceof BetweenPredicate) {
-
+                BetweenPredicate betweenPredicate = (BetweenPredicate) expression;
+                String dt = betweenPredicate.getValue().toString();
+                if ("dt".equalsIgnoreCase(dt)) {
+                    parseBetweenPredicate(betweenPredicate);
+                }
             }
             if (expression instanceof InPredicate) {
                 InPredicate inPredicate = (InPredicate) expression;
@@ -350,4 +274,33 @@ public class TableNameParser {
         }
     }
 
+    private static boolean isDt(Identifier identifier) {
+        String dt = identifier.getName().toString();
+        return dt.equalsIgnoreCase("dt");
+
+    }
+    /**
+     * 解析Between语法
+     * @param betweenPredicate
+     */
+    private static void parseBetweenPredicate(BetweenPredicate betweenPredicate) {
+        String min = betweenPredicate.getMin().toString();
+        String max = betweenPredicate.getMax().toString();
+        dateScope.add(min);
+        dateScope.add(max);
+        dateScopeList.add(dateScope);
+    }
+
+    private static void parseComparisonExpression(ComparisonExpression comparisonExpression) {
+        String type = comparisonExpression.getType().toString();
+        if (type.equalsIgnoreCase("EQUAL")) {
+
+        }
+        if (type.equalsIgnoreCase("LESS_THAN")) {
+
+        }
+        if (type.equalsIgnoreCase("GREATER_THAN")) {
+
+        }
+    }
 }
