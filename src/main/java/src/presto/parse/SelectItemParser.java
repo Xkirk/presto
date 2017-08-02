@@ -13,19 +13,6 @@ import java.util.Optional;
 public class SelectItemParser {
     public static List<String> selectItemsList = new ArrayList<>();//SQL中所有将被查询字段的List
 
-    public static void main(String[] args) {
-        String sql = SQL.sql;
-        SqlParser parser = new SqlParser();
-        Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
-        if (query != null) {
-            parseQuery(query);
-        }
-        for (String item :
-                selectItemsList) {
-            System.out.println(item);
-        }
-    }
-
     /**
      * 解析Query
      *
@@ -56,10 +43,11 @@ public class SelectItemParser {
         }
     }
 
-        /**
-         * 解析SelectItem
-         * @param selectItem
-         */
+    /**
+     * 解析SelectItem
+     *
+     * @param selectItem
+     */
 
     private static void parseSelectItem(SelectItem selectItem) {
         if (selectItem instanceof SingleColumn) {
@@ -74,9 +62,33 @@ public class SelectItemParser {
                     selectItemsList.add(identifier.getName());
                 } else {//若查询目标是一个表达式,则显示表达式
                     String exprs = expression.toString();
-                    selectItemsList.add(exprs.replace("\"",""));
+                    selectItemsList.add(exprs.replace("\"", ""));
                 }
             }
         }
     }
+
+    public static List<String> parseSelectItems(String sql) {
+        SqlParser parser = new SqlParser();
+        selectItemsList = new ArrayList<>();
+        Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
+        if (query != null) {
+            parseQuery(query);
+        }
+        return selectItemsList;
+    }
+//    public static void main(String[] args) {
+//        String sql = SQL.sql;
+//        SqlParser parser = new SqlParser();
+//        Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
+//        if (query != null) {
+//            parseQuery(query);
+//        }
+//        for (String item :
+//                selectItemsList) {
+//            System.out.println(item);
+//        }
+//    }
+
+//}
 }

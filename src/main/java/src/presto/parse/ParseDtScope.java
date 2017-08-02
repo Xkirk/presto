@@ -21,6 +21,7 @@ public class ParseDtScope {
     private static HashMap<String, ScopeList> dtScopte;
 
     public static void main(String[] args) throws ParseException {
+        HashMap<String, String> tb_scope = new HashMap<>();
         String sql = SQL.sql1;
         SqlParser parser = new SqlParser();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
@@ -52,6 +53,7 @@ public class ParseDtScope {
                 scope += endList.get(i) - strList.get(i) + oneDay();
             }
             System.out.println(key + ":" + String.valueOf(scope / 3600 / 24));
+            tb_scope.put(key, String.valueOf(scope / 3600 / 24));
         }
     }
 
@@ -627,8 +629,11 @@ public class ParseDtScope {
      */
     private static long stringToUnixTime(String date) throws ParseException {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String today = simpleDateFormat.format(new Date()); //获取当前日期
         long unixTime = simpleDateFormat.parse(date).getTime() / 1000;
-        return unixTime;
+        long unixTimeToday = simpleDateFormat.parse(today).getTime() / 1000; //获取当前日期的 unix时间戳
+        //若查询日期(unixTime)超出当前日期(unixTimeToday)则视为无效,使用当前日期的unix时间戳代替并返回
+        return unixTime > unixTimeToday ? unixTimeToday : unixTime;
     }
     //---------------------------------辅助方法小分队   End--------------------------------
 
