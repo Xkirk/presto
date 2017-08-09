@@ -10,10 +10,10 @@ import java.util.Date;
 public class ParserTest {
     public static void main(String[] args) throws ParseException {
 //        stringToSDF();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
         Date date = new Date();
         String s= sdf.format(date);
-        System.out.println(date);
+        System.out.println(s);
     }
 
     public static void  stringToSDF() throws ParseException {

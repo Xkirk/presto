@@ -4,12 +4,12 @@ package src.presto.parse;
  * Created by kirk on 2017/7/12.
  */
 public class SQL {
-        public static String sql = "select attr from server_event_parquet a " +
-                "left join " +
-                "(select uid from page_event_parquet  where b.dt between '20170725' and '20170724') b "  +
-                "on a.uid = b.uid " +
-                "left join mobile_event_parquet c  on uid = uid " +
-                "where a.dt<'20170725' and a.dt>'20170720' or b.dt between '20170701' and '20170702' and c.dt<'20170726' or c.dt ='20170727' and c.dt >'20170725' or c.dt > '20190101' and c.dt<'20190104'";
+    public static String sql = "select attr from server_event_parquet a " +
+            "left join " +
+            "(select uid from page_event_parquet  where b.dt between '20170725' and '20170724') b "  +
+            "on a.uid = b.uid " +
+            "left join mobile_event_parquet c  on uid = uid " +
+            "where a.dt<'20170725' and a.dt>'20170720' or b.dt between '20170701' and '20170702' and c.dt<'20170726' or c.dt ='20170727' and c.dt >'20170725' or c.dt > '20190101' and c.dt<'20190104'";
     public static String sql1 = "with tfcdtl as \n" +
             "(\n" +
             "    select dt,platform,uuid as uvid \n" +
@@ -22,8 +22,8 @@ public class SQL {
             "    union all\n" +
             "\n" +
             "    select dt,'app' as platform,open_udid as uvid\n" +
-            "    from mobile_event.page \n" +
-            "    where dt between '20170501' and '20170531'\n" +
+            "    from mobile_event.page a \n" +
+            "    where a.dt between '20170501' and '20170531'\n" +
             "    and app_code in ('cn.mafengwo.www','com.mfw.roadbook')\n" +
             "    and attr_name='机票首页'\n" +
             "    --and attr_in='parent'\n" +
@@ -41,7 +41,6 @@ public class SQL {
             "\n" +
             "    select dt,'app' as platform,open_udid as uvid\n" +
             "    from mobile_event.page \n" +
-            "    left join page_event.page \n" +
             "    where dt between '20170501' and '20170531'\n" +
             "    and app_code in ('cn.mafengwo.www','com.mfw.roadbook')\n" +
             "    and attr_name='机票列表页'\n" +
