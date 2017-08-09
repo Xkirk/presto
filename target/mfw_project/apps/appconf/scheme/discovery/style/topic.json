@@ -1,0 +1,77 @@
+{
+    "type": "object",
+    "description": "横滑的话题样式，如蜂首",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "topic"
+            ]
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "abtest": {
+                    "type": "string",
+                    "description": "ab测试用，默认为空"
+                },
+                "has_more": {
+                    "type": "integer",
+                    "description": "是否有查看更多1/0"
+                },
+                "jump_url": {
+                    "type": "string",
+                    "description": "查看更多的跳转链接"
+                },
+                "sub_title": {
+                    "type": "string",
+                    "description": "查看更多文案"
+                },
+                "item_type": {
+                    "type": "string",
+                    "description": "业务类型，上报日志用"
+                },
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "business_id": {
+                    "type": "string"
+                },
+                "badge": {
+                    "ref": "_partial/badge"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "image": {
+                                "type": "string",
+                                "description": "图片url"
+                            },
+                            "id": {
+                                "type": "string"
+                            },
+                            "time": {
+                                "type": "integer",
+                                "description": "时间"
+                            },
+                            "title": {
+                                "type": "string",
+                                "description": "标题"
+                            },
+                            "jump_url": {
+                                "type": "string",
+                                "description": "跳转链接"
+                            },
+                            "bottom": {
+                                "ref": "discovery/bottom"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "description": "问题基本实体",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "问题id"
+    },
+    "title": {
+      "type": "string",
+      "description": "问题标题"
+    },
+    "content": {
+      "type": "string",
+      "description": "问题内容"
+    },
+    "anum": {
+      "type": "integer",
+      "description": "回答数"
+    },
+    "pv": {
+      "type": "integer",
+      "description": "浏览数"
+    },
+    "cnum": {
+      "type": "integer",
+      "description": "评论数"
+    },
+    "ctime": {
+      "type": "integer",
+      "description": "创建时间的时间戳"
+    }
+  }
+}

@@ -1,0 +1,133 @@
+{
+  "type": "object",
+  "description": "攻略回复实体",
+  "properties": {
+    "rid": {
+      "type": "string",
+      "description": "此条回复的id"
+    },
+    "type": {
+      "type": "integer",
+      "description": "回复类型：0 直接回复,1 回复回复",
+      "enum": [0, 1]
+    },
+    "category": {
+      "type": "string",
+      "description": "热门评论/普通评论",
+      "enum": ["hot", "normal"]
+    },
+    "ctime": {
+      "type": "integer",
+      "description": "回复发布的时间戳"
+    },
+    "like_num": {
+      "type": "integer",
+      "description": "点赞数"
+    },
+    "content": {
+      "type": "object",
+      "description": "回复的内容列表",
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "回复的内容实体",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "@, link, face, txt四种"
+              },
+              "content": {
+                "type": "string",
+                "description": "攻略回复文本"
+              },
+              "ext": {
+                "type": "string",
+                "description": "@对应uid， link对应url，face对应表情id，txt下为空"
+              }
+            },
+            "required": ["type","content"]
+          }
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "ref": "_partial/image",
+            "include": [
+              "width",
+              "height",
+              "simg",
+              "bimg"
+            ]
+          }
+        }
+      }
+    },
+    "user": {
+      "ref": "user/user",
+      "include": ["id","name","level","logo","status","status_url"],
+      "description": "回复的发起者"
+    },
+    "reference": {
+      "type": "object",
+      "description": "引用回复",
+      "properties": {
+        "content": {
+          "type": "object",
+          "description": "被引用回复内容",
+          "properties": {
+            "text": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "回复的内容实体",
+                "properties": {
+                  "type": {
+                    "type": "string",
+                    "description": "@, link, face, txt四种"
+                  },
+                  "content": {
+                    "type": "string",
+                    "description": "攻略回复文本"
+                  },
+                  "ext": {
+                    "type": "string",
+                    "description": "@对应uid， link对应url，face对应表情id，txt下为空"
+                  }
+                },
+                "required": ["type","content"]
+              }
+            },
+            "image": {
+              "type": "array",
+              "items": {
+                "ref": "_partial/image",
+                "include": [
+                  "width",
+                  "height",
+                  "simg",
+                  "bimg"
+                ]
+              }
+            }
+          }
+        },
+        "rid": {
+          "type": "string",
+          "description": "被回复/引用游记回复id"
+        },
+        "ctime": {
+          "type": "integer",
+          "description": "回复发布的时间戳"
+        },
+        "user": {
+          "ref": "user/user",
+          "include": ["id","name","level","logo","status","status_url"],
+          "description": "回复的发起者"
+        }
+      }
+    }
+  },
+  "required": ["rid","type","ctime","content","user"]
+}

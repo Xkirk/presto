@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "description":"banner 对象",
+    "properties": {
+        "img_url": {
+            "type": "string",
+            "description": "banner图片url"
+        },
+        "width": {
+            "type": "integer",
+            "description": "图片宽度(dp)"
+        },
+        "height": {
+            "type": "integer",
+            "description": "图片高度(dp)"
+        },
+        "jump_url": {
+            "type": "string",
+            "description": "跳转链接, 值为空表示这张图片点击后不跳转"
+        }
+    }
+}

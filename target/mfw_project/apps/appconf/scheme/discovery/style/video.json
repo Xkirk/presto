@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "description": "视频",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "video"
+      ]
+    },
+    "data": {
+      "type" : "object", 
+      "properties": {
+        "abtest": {
+          "type": "string",
+          "description": "ab测试用，默认为空"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "business_id": {
+          "type": "string"
+        },
+        "item_type": {
+          "type": "string",
+          "description": "业务类型，上报日志用"
+        },
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "bottom": {
+          "ref": "discovery/bottom"
+        },
+        "video": {
+          "type": "object",
+          "description": "视频",
+          "properties": {
+            "thumbnail": {
+              "type": "object",
+              "properties": {
+                "simg": {
+                  "type": "string",
+                  "description": "视频封面"
+                }
+              }
+            },
+            "duration": {
+              "type": "integer",
+              "description": "时长(秒)"
+            },
+            "md_url": {
+              "type": "string",
+              "description": "视频链接地址,建议移动网络环境播放"
+            },
+            "hd_url": {
+              "type": "string",
+              "description": "视频链接地址,建议wifi网络环境播放"
+            }
+          }
+        }
+      }
+    }
+  }
+}

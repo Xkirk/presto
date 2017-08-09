@@ -1,0 +1,15 @@
+{
+  "type": "object",
+  "description": "曝光统计类型model",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "business_id": {
+      "type": "string"
+    },
+    "abtest": {
+      "type": "string"
+    }
+  }
+}

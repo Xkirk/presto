@@ -1,6 +1,0 @@
-src/PrestoConnector.class
-src/com/mafengwo/PrestoResult.class
-src/com/mafengwo/PrestoException.class
-src/PrestoClient.class
-src/calcite/TestCalcite.class
-src/Test.class

@@ -1,0 +1,45 @@
+{
+    "type": "object",
+    "description": "目的地页极速预定",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "billions_board"
+            ]
+        },
+        "type": {
+            "type":"string",
+            "description":"对应的业务类型,极速预定billions_board"
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "jump_url": {
+                    "type": "string",
+                    "description": "跳转链接"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "user": {
+                                "ref": "user/user",
+                                "include": ["id","name","logo"]
+                            },
+                            "message": {
+                                "type": "string",
+                                "description": "滚动消息"
+                            },
+                            "price":{
+                                "ref":"_partial/price",
+                                "include":["number","type"]
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

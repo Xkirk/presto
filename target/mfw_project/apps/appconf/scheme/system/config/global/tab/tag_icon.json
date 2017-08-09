@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "hide_after_selected": {
+      "type": "integer",
+      "description": "0隐藏，1不隐藏"
+    },
+    "icon3x": {
+      "type": "string",
+      "description": "图片url 要3倍图"
+    }
+  }
+}

@@ -4,6 +4,7 @@ import com.facebook.presto.sql.parser.SqlParser;
 import com.facebook.presto.sql.tree.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,40 +13,45 @@ import java.util.Optional;
  */
 public class TableNameParser {
 
-    public static List<String> tableList = new ArrayList<>();//SQL中所有将被查询的表的List
-    public static List<String> withTableList = new ArrayList<>();//SQL中自定义表的List
+    public static HashSet<String> tableSet = new HashSet();//SQL中所有将被查询的表的集合
+    public static HashSet<String> withTableSet = new HashSet();//SQL中自定义表的集合
 
-
-
-
-    public static void main(String[] args) {
-        String sql = SQL.sql;
-        List<String> tblist = getTableName(sql);
-        for (String tableName :
-                tblist) {
-            System.out.println("QueryTableName:"+tableName);
+    public static List<String> getTargetTables(String sql) {
+        List<String> tableList = new ArrayList<>();
+        HashSet<String> tables = getTableName(sql);
+        HashSet<String> withTables = getWithTableNameBySQL(sql);
+        for (String table : tables) {
+            if (!withTables.contains(table)) {
+                tableList.add(table);
+            }
         }
-        System.out.println("=============================");
-        List<String> withTbLs = getWithTableNameBySQL(sql);
-        for (String withTbNm :
-                withTbLs) {
-            System.out.println("WithTableName:"+withTbNm);
-        }
-
+        return tableList;
     }
+
+    public static List<String> getWithTables(String sql) {
+        List<String> tableList = new ArrayList<>();
+        HashSet<String> withTables = getWithTableNameBySQL(sql);
+        for (String table :
+                withTables) {
+            tableList.add(table);
+        }
+        return tableList;
+    }
+
     /**
      * 从SQL中获取所有自定义表的List
      *
      * @param sql
      */
-    private static List<String> getWithTableNameBySQL(String sql) {
+    private static HashSet<String> getWithTableNameBySQL(String sql) {
         SqlParser parser = new SqlParser();
+        withTableSet = new HashSet<>();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
         if (query != null) {
             Optional<With> with = query.getWith();
             parseWithTable(with);
         }
-        return withTableList;
+        return withTableSet;
     }
 
     /**
@@ -57,22 +63,23 @@ public class TableNameParser {
         if (with.isPresent()) {
             List<WithQuery> queries = with.get().getQueries();
             for (WithQuery withQuery : queries) {
-                withTableList.add(withQuery.getName());
+                withTableSet.add(withQuery.getName());
             }
         }
     }
+
     /**
-     *
      * @param sql
      * @return
      */
-    public static List<String> getTableName(String sql) {
+    private static HashSet<String> getTableName(String sql) {
         SqlParser parser = new SqlParser();
+        tableSet = new HashSet<>();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
         if (query != null) {
             parseQuery(query);
         }
-        return tableList;
+        return tableSet;
     }
 
     /**
@@ -97,8 +104,10 @@ public class TableNameParser {
             }
         }
     }
+
     /**
      * 解析Query
+     *
      * @param query
      */
     private static void parseQuery(Query query) {
@@ -111,6 +120,7 @@ public class TableNameParser {
             parseWith(with);
         }
     }
+
     /**
      * 解析Join下的内容
      * *******************|--类型是Table调用parseTable获取TableName
@@ -156,7 +166,7 @@ public class TableNameParser {
 
     /**
      * 解析从Join getLeft接口返回的Join
-     *
+     * <p>
      * *******************|-->类型是Table调用parseTable获取TableName
      * parseJoinGetLeft***|-->类型是Join调用parseJoin
      * *******************|-->类型是AliasedRelation 调用parseAliasedRelation  |-->调用parseTableSubQuery
@@ -234,6 +244,7 @@ public class TableNameParser {
 
     /**
      * 解析From
+     *
      * @param from
      */
     private static void parseFrom(Optional<Relation> from) {
@@ -259,6 +270,7 @@ public class TableNameParser {
 
     /**
      * 解析TableSubQuery
+     *
      * @param tableSubquery
      */
     private static void parseTableSubQuery(TableSubquery tableSubquery) {
@@ -271,14 +283,16 @@ public class TableNameParser {
 
     /**
      * 解析出Table通过getName()装载进tableList
+     *
      * @param table
      */
     private static void parseTable(Table table) {
-        tableList.add(table.getName().toString());
+        tableSet.add(table.getName().toString());
     }
 
     /**
      * 解析QueryBody
+     *
      * @param queryBody
      */
     private static void parseQueryBody(QueryBody queryBody) {
@@ -301,7 +315,7 @@ public class TableNameParser {
 
     /**
      * 解析AliasedRelation
-     *
+     * <p>
      * aliasedRelation|
      *
      * @param aliasedRelation
@@ -319,6 +333,7 @@ public class TableNameParser {
 
     /**
      * 解析where
+     *
      * @param where
      */
     private static void parseWhere(Optional<Expression> where) {

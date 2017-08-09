@@ -1,0 +1,66 @@
+{
+  "type": "object",
+  "description": "目的地页极速预定",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "billions_board"
+      ]
+    },
+    "type": {
+      "type":"string",
+      "description":"对应的业务类型,极速预定billions_board"
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "logo": {
+          "type": "string",
+          "description": "左侧图片url"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer",
+                    "description": "用户uid"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "用户名"
+                  },
+                  "logo": {
+                    "type": "string",
+                    "description": "用户头像url"
+                  }
+                }
+              },
+              "message": {
+                "type": "string",
+                "description": "滚动消息"
+              },
+              "price_type": {
+                "type": "string",
+                "description": "价格类型,¥"
+              },
+              "price": {
+                "type": "number",
+                "description": "价格"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

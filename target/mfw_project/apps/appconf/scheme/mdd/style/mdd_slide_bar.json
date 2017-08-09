@@ -1,0 +1,50 @@
+{
+  "type": "object",
+  "description": "目的地热门商圈",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "mdd_slide_bar"
+      ],
+      "description": "客户端的呈现样式"
+    },
+    "data": {
+      "type": "object",
+      "description": "数据",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "name": {
+                "type": "string",
+                "description": "名称"
+              },
+              "desc": {
+                "type": "string",
+                "description": "商圈描述"
+              },
+              "thumbnail": {
+                "type": "string",
+                "description": "缩略图"
+              },
+              "jump_url": {
+                "type": "string",
+                "description": "目的地区域sharejump"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

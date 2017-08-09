@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "description": "poi类型model",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "description": "poi名字",
+      "type": "string"
+    },
+    "thumbnail": {
+      "type": "string"
+    },
+    "type_id": {
+      "type": "integer"
+    },
+    "lat": {
+      "type": "number",
+      "description": "poi经度"
+    },
+    "lng": {
+      "type": "number",
+      "description": "poi维度"
+    }
+  }
+}

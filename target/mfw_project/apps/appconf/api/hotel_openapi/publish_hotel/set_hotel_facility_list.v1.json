@@ -1,0 +1,35 @@
+{
+  "title": "添加酒店设施",
+  "login": true,
+  "method": "POST",
+  "input": {
+    "type": "object",
+    "properties": {
+      "hotel_id": {
+        "description": "酒店id",
+        "type": "integer"
+      },
+      "facility_list": {
+        "type": "string",
+        "description": "图片id，逗号分隔"
+      }
+    },
+    "required": [
+      "hotel_id"
+    ]
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "hotel_id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}

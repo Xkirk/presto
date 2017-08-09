@@ -1,0 +1,36 @@
+{
+    "type": "object",
+    "description": "目的地页广告横幅之类的",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "banner"
+            ]
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string"
+                },
+                "jump_url": {
+                    "type": "string"
+                },
+                "list": {
+                    "type": "array",
+                    "description": "广告列表",
+                    "items": {
+                        "ref": "_partial/banner",
+                        "include": [
+                            "img_url",
+                            "width",
+                            "height",
+                            "jump_url"
+                        ]
+                    }
+                }
+            }
+        }
+    }
+}

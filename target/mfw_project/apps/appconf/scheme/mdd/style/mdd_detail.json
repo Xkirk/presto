@@ -1,0 +1,91 @@
+{
+  "type": "object",
+  "description": "目的地详情,目的地页",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "目的地id"
+    },
+    "name": {
+      "type": "string",
+      "description": "目的地名"
+    },
+    "lat": {
+      "type": "number",
+      "description": "纬度"
+    },
+    "lng": {
+      "type": "number",
+      "description": "经度"
+    },
+    "map_provider": {
+      "type": "string",
+      "description": "地图提供商",
+      "enum": [
+        "amap",
+        "baidu",
+        "google"
+      ]
+    },
+    "is_country": {
+      "type": "integer",
+      "description": "是否国际级目的地 0 不是 1 是",
+      "enum": [
+        0,
+        1
+      ]
+    },
+    "is_fav": {
+      "type": "boolean",
+      "descripion": "是否收藏"
+    },
+    "header_img": {
+      "type": "string",
+      "description": "头图"
+    },
+    "num_album": {
+      "type": "integer",
+      "description": "相册图片数量"
+    },
+    "album_example": {
+      "type": "array",
+      "description": "样例",
+      "items": {
+        "type": "string",
+        "description": "图片url"
+      }
+    },
+    "parent": {
+      "type": "object",
+      "description": "父级目的地",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "目的地id"
+        },
+        "name": {
+          "type": "string",
+          "description": "目的地名称"
+        }
+      }
+    },
+    "num_url": {
+      "type": "object",
+      "description": "目的地旅行统计",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "过去24小时"
+        },
+        "num": {
+          "type": "integer",
+          "description": "正在旅行人数"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        }
+      }
+    }
+  }
+}

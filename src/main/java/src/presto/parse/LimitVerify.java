@@ -3,6 +3,8 @@ package src.presto.parse;
 import com.facebook.presto.sql.parser.SqlParser;
 import com.facebook.presto.sql.tree.*;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Optional;
 
 
@@ -21,6 +23,10 @@ public class LimitVerify {
         if (!limitFlag) {
             sql = sql + "\n" + "limit 50000";
         }
+        Date data = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd kk:mm:ss");
+        String dateAndTime = sdf.format(data);
+        System.out.println(dateAndTime+"==>"+sql);
         return sql;
     }
 

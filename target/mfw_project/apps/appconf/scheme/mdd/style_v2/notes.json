@@ -1,0 +1,72 @@
+{
+    "type": "object",
+    "description": "热门游记style",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "notes"
+            ],
+            "description": "客户端的呈现样式"
+        },
+        "data": {
+            "type": "object",
+            "description": "数据",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "jump_url": {
+                    "type": "string",
+                    "description": "跳转链接"
+                },
+                "bottom": {
+                    "type": "string",
+                    "description": "查看更多 这样的文字"
+                },
+                "has_more": {
+                    "type": "integer",
+                    "description": "是否显示查看更多，0/1"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string"
+                            },
+                            "thumbnail": {
+                                "type": "string",
+                                "description": "缩略图"
+                            },
+                            "desc": {
+                                "type": "string",
+                                "description": "描述信息 **评论**阅读,支持富文本"
+                            },
+                            "user": {
+                                "ref": "user/user",
+                                "include": ["id","name","logo"],
+                                "description": "用户信息"
+                            },
+                            "badge": {
+                                "description": "角标",
+                                "ref": "_partial/badge",
+                                "include": [
+                                    "image",
+                                    "width",
+                                    "height"
+                                ]
+                            },
+                            "jump_url": {
+                                "type": "string",
+                                "description": "跳转链接"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

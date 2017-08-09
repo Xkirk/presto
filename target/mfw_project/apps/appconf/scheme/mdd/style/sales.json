@@ -1,0 +1,82 @@
+{
+  "type": "object",
+  "description": "自由行商品",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "sales"
+      ],
+      "description": "客户端的呈现样式"
+    },
+    "data": {
+      "type": "object",
+      "description": "数据",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "bottom": {
+          "type": "string",
+          "description": "查看更多 这样的文字"
+        },
+        "has_more": {
+          "type": "boolean",
+          "description": "true 显示bottom"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "thumbnail": {
+                "type": "string"
+              },
+              "type": {
+                "type": "string",
+                "description": "机+酒等文字"
+              },
+              "type_color": {
+                "type": "string"
+              },
+              "price_current": {
+                "type": "float",
+                "description": "包括货币符号，例如：￥200"
+              },
+              "price_suffix": {
+                "type": "string",
+                "description": "价格描述，例如：起/人"
+              },
+              "discount": {
+                "type": "string",
+                "description": "折扣，例如：8.5折"
+              },
+              "num_follows": {
+                "type": "integer",
+                "description": "pv"
+              },
+              "tag": {
+                "type": "string",
+                "description": "产品标签(左上角)"
+              },
+              "jump_url": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

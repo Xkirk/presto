@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "description": "我的xxx左上角标示",
+  "properties": {
+    "text": {
+      "type": "string",
+      "description": "文字"
+    },
+    "gradient_color": {
+      "type": "object",
+      "properties": {
+        "left": {
+          "type": "string",
+          "description": "#ffffff"
+        },
+        "right": {
+          "type": "string",
+          "description": "#ffffff"
+        }
+      }
+    },
+    "icon3x": {
+      "type": "string",
+      "description": "图片url 要3倍图,传icon则上面的text和gradient_color则无效"
+    }
+  }
+}

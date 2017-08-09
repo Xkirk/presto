@@ -1,0 +1,93 @@
+{
+  "title": "获取房型的信息",
+  "login": true,
+  "method": "GET",
+  "input": {
+    "type": "object",
+    "properties": {
+      "room_id": {
+        "description": "房型id",
+        "type": "integer"
+      }
+    },
+    "required": [
+      "room_id"
+    ]
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "room_name": {
+            "type": "string"
+          },
+          "room_size": {
+            "type": "integer"
+          },
+          "people_num": {
+            "type": "integer"
+          },
+          "bed_type": {
+            "type": "integer"
+          },
+          "bed_num":{
+            "type": "integer"
+          },
+          "bed_size":{
+            "type": "integer"
+          },
+          "image_num": {
+            "type": "integer"
+          },
+          "image_list": {
+            "type": "array",
+            "items": {
+              "ref": "_partial/image",
+              "exclude":["bimg"],
+              "additional": {
+                "id": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "can_add_bed": {
+            "type": "integer"
+          },
+          "room_facility_key_point": {
+            "type": "string"
+          },
+          "facility_num": {
+            "type": "integer"
+          },
+          "facilities": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "icon_url": {
+                  "type": "string"
+                },
+                "selected": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

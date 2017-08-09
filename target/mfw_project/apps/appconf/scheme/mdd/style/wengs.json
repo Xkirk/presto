@@ -1,0 +1,80 @@
+{
+  "type": "object",
+  "description": "目的地嗡嗡列表",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "wengs"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "模块名称，富文本"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "sharejump"
+        },
+        "bottom": {
+          "type": "string",
+          "description": "查看更多 这样的文字"
+        },
+        "has_more": {
+          "type": "boolean",
+          "description": "true 显示bottom"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "img": {
+                "type": "object",
+                "properties": {
+                  "simg": {
+                    "type": "string"
+                  },
+                  "width": {
+                    "type": "integer"
+                  },
+                  "height": {
+                    "type": "integer"
+                  }
+                }
+              },
+              "owner": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "integer"
+                  },
+                  "logo": {
+                    "type": "string"
+                  }
+                }
+              },
+              "lat": {
+                "type": "float",
+                "description": "为0时不计算距离"
+              },
+              "lng": {
+                "type": "float",
+                "description": "为0时不计算距离"
+              },
+              "jump_url": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

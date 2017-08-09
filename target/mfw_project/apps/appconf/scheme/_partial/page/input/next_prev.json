@@ -1,0 +1,46 @@
+{
+  "description": "获取第一页数据；获取包含某数据的数据分页；向上翻页；向下翻页",
+  "anyOf" : [
+    {
+      "ref": "_partial/page/input/next",
+      "description": "获取第一页数据和往下翻页"
+    },
+    {
+      "type": "object",
+      "description":"获取包含某数据的数据分页",
+      "properties": {
+        "contains": {
+          "type": "string",
+          "description": "需要包含的业务id"
+        },
+        "num": {
+          "type": "integer",
+          "description": "每页条数"
+        }
+      },
+      "allowAdditional": false,
+      "required": ["contains"]
+    },
+    {
+      "type": "object",
+      "description":"往上翻页",
+      "properties": {
+        "direction": {
+          "type": "string",
+          "description": "只在上翻的时候接受direction参数",
+          "enum": ["up"]
+        },
+        "boundary": {
+          "type": "string",
+          "description": "传服务器返回的上边界值prev_boundary"
+        },
+        "num": {
+          "type": "integer",
+          "description": "每页条数"
+        }
+      },
+      "allowAdditional": false,
+      "required": ["boundary","direction"]
+    }
+  ]
+}

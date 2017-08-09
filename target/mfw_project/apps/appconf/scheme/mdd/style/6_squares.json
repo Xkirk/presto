@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "description": "简单方块，目的地、poi的附近poi/目的地等",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "6_squares"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "bottom": {
+          "type": "string",
+          "description": "查看更多 这样的文字"
+        },
+        "has_more": {
+          "type": "boolean",
+          "description": "是否显示查看更多"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "方块中的主标题"
+              },
+              "sub_title": {
+                "type": "string",
+                "description": "方块中的副标题,富文本"
+              },
+              "img_url": {
+                "type": "string",
+                "description": "缩略图链接"
+              },
+              "jump_url": {
+                "type": "string",
+                "description": "跳转链接"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

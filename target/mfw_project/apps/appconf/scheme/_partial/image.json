@@ -1,0 +1,20 @@
+{
+  "type": "object",
+  "properties": {
+    "width": {
+      "type": "integer"
+    },
+    "height": {
+      "type": "integer"
+    },
+    "simg": {
+      "type": "string"
+    },
+    "bimg": {
+      "type" : "string"
+    },
+    "oimg": {
+      "type": "string"
+    }
+  }
+}

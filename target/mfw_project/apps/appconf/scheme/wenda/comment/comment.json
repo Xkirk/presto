@@ -1,0 +1,25 @@
+{
+  "type": "object",
+  "description": "评论的基本实体",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "content": {
+      "type": "string",
+      "description": "回答的内容"
+    },
+    "ctime": {
+      "type": "integer",
+      "description": "创建时间的时间戳"
+    },
+    "user":{
+      "type":"object",
+      "ref": "wenda/user/user"
+    },
+    "ruser":{
+      "type":"object",
+      "ref": "wenda/user/user"
+    }
+  }
+}

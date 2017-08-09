@@ -1,0 +1,25 @@
+{
+    "type": "object",
+    "properties": {
+        "tag_list": {
+            "type": "array",
+            "items": {
+                "ref": "_partial/tag"
+            }
+        },
+        "user": {
+            "ref": "discovery/user"
+        },
+        "user_suffix": {
+            "type": "string",
+            "description": "用户名后面的文案，富文本。比如：在首尔"
+        },
+        "attach": {
+            "ref": "discovery/bottom_attach"
+        },
+        "attach_text": {
+            "type": "string",
+            "description": "显示在右下角的附加信息，比如浏览数，回复数, 优先级高于attach"
+        }
+    }
+}

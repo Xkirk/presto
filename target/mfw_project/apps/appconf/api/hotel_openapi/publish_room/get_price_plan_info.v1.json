@@ -1,0 +1,47 @@
+{
+  "title": "获取房型的价格计划信息",
+  "login": true,
+  "method": "GET",
+  "input": {
+    "type": "object",
+    "properties": {
+      "room_id": {
+        "description": "房型id",
+        "type": "integer"
+      },
+      "date_list":{
+        "type": "string",
+        "description": "日期时间戳逗号分隔"
+      }
+    },
+    "required": [
+      "room_id"
+    ]
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "price": {
+            "type": "integer"
+          },
+          "room_num": {
+            "type": "integer"
+          },
+          "has_breakfast": {
+            "type": "integer"
+          },
+          "cancel_type": {
+            "type": "integer"
+          },
+          "can_book": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "type": "object",
+  "description": "带标签的酒店",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "hotels"
+      ],
+      "description": "客户端的呈现样式"
+    },
+    "data": {
+      "type": "object",
+      "description": "数据",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "bottom": {
+          "type": "string",
+          "description": "查看更多 这样的文字"
+        },
+        "has_more": {
+          "type": "boolean",
+          "description": "true 显示bottom"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tag_name": {
+                "type": "sting",
+                "description": "tag名称"
+              },
+              "jump_url": {
+                "type": "sting",
+                "description": "tag下的jump url"
+              },
+              "list": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "subtitle": {
+                      "type": "string",
+                      "description": "支持html"
+                    },
+                    "thumbnail": {
+                      "type": "string"
+                    },
+                    "badge": {
+                      "type": "object",
+                      "description": "酒店角标",
+                      "properties": {
+                        "image": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "integer"
+                        },
+                        "height": {
+                          "type": "integer"
+                        }
+                      }
+                    },
+                    "price": {
+                      "type": "object",
+                      "description": "酒店价格",
+                      "properties": {
+                        "number": {
+                          "type": "string",
+                          "description": "价格"
+                        },
+                        "type": {
+                          "type": "string",
+                          "description": "价格单位"
+                        },
+                        "suffix": {
+                          "type": "string",
+                          "description": "价格后缀，如：起"
+                        }
+                      }
+                    },
+                    "jump_url": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

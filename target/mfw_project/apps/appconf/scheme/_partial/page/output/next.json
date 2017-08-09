@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "description": "向下翻页返回结构",
+  "properties": {
+    "next": {
+      "type": "boolean",
+      "description": "是否有下一页"
+    },
+    "next_boundary": {
+      "type": "string",
+      "description": "返回的数据片段的下边界"
+    }
+  },
+  "allowAdditional": false,
+  "required": ["next","next_boundary"]
+}
+

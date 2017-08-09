@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "description": "附加信息对象",
+    "properties": {
+        "text": {
+            "type": "string",
+            "description": "文案"
+        },
+        "has_image": {
+            "type": "integer",
+            "description": "0/1 是否有底部图片"
+        },
+        "is_bold":{
+            "type":"integer",
+            "description":"0/1 是否粗体显示"
+        },
+        "font_color": {
+            "type": "string",
+            "description": "指定字体颜色"
+        }
+    }
+}

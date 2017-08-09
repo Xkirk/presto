@@ -1,0 +1,77 @@
+{
+  "type": "object",
+  "description": "嗡嗡基本实体",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "type": {
+      "type": "integer",
+      "description": "0 为默认 1为小视频 2为360",
+      "enum": [0,1,2]
+    },
+    "ctime": {
+      "type": "integer"
+    },
+    "ptime": {
+      "type": "integer"
+    },
+    "content": {
+      "type": "string",
+      "description": "内容"
+    },
+    "lat": {
+      "type": "number"
+    },
+    "lng": {
+      "type": "number"
+    },
+    "is_fav": {
+      "type": "integer"
+    },
+    "is_sel": {
+      "type": "integer"
+    },
+    "num_fav": {
+      "type": "integer"
+    },
+    "num_lbs_weng": {
+      "type": "integer"
+    },
+    "num_reply": {
+      "type": "integer"
+    },
+    "flag": {
+      "type": "integer",
+      "description": "审核状态"
+    },
+    "desc": {
+      "type": "string",
+      "description": "描述"
+    },
+    "mdd": {
+      "ref": "mdd/mdd"
+    },
+    "poi": {
+      "ref": "poi/poi"
+    },
+    "img": {
+      "ref": "_partial/image"
+    },
+    "owner": {
+      "ref": "user/user"
+    },
+    "fav_users":{
+      "type": "array",
+      "items":{
+        "ref":"user/user"
+      }
+    },
+    "replies":{
+      "type": "array",
+      "items":{
+        "ref":"reply/reply"
+      }
+    }
+  }
+}

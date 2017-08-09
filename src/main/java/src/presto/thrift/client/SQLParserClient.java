@@ -4,7 +4,7 @@ import org.apache.thrift.protocol.TBinaryProtocol;
 import org.apache.thrift.protocol.TProtocol;
 import org.apache.thrift.transport.TSocket;
 import org.apache.thrift.transport.TTransport;
-import src.presto.parse.SQL;
+import src.presto.test.SQL;
 import src.presto.thrift.service.SQLParser;
 
 import java.util.ArrayList;

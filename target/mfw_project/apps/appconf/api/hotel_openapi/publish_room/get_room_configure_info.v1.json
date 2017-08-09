@@ -1,0 +1,63 @@
+{
+  "title": "获取房型的配置信息",
+  "login": true,
+  "method": "GET",
+  "input": {
+    "type": "object",
+    "properties": {
+    }
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "bed_size_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "bed_type_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "cancel_type_list": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "integer"
+                },
+                "name": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

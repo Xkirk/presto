@@ -1,0 +1,73 @@
+{
+    "type": "object",
+    "description": "目的地页极速预定入口",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "six_blocks"
+            ]
+        },
+        "type": {
+            "type": "string",
+            "description": "对应的业务类型,极速预定billions_board"
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "badge": {
+                    "type": "object",
+                    "description": "玩／住的图片",
+                    "ref": "_partial/badge",
+                    "include": [
+                        "image",
+                        "width",
+                        "height"
+                    ]
+                },
+                "line_color":{
+                    "type":"string",
+                    "description":"线的颜色，请务必返回#6位 如#000000"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string",
+                                "description": "方块中的主标题"
+                            },
+                            "sub_title": {
+                                "type": "string",
+                                "description": "方块中的副标题"
+                            },
+                            "business_type": {
+                                "type": "string",
+                                "enum": [
+                                    "sales",
+                                    "hotel"
+                                ],
+                                "description": "业务类型，sales 自由行商品 hotel 酒店"
+                            },
+                            "badge": {
+                                "type": "object",
+                                "description": "玩／住的图片",
+                                "ref": "_partial/badge",
+                                "include": [
+                                    "image",
+                                    "width",
+                                    "height"
+                                ]
+                            },
+                            "jump_url": {
+                                "type": "string",
+                                "description": "跳转链接"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

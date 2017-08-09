@@ -1,0 +1,30 @@
+{
+  "type": "object",
+  "description": "直播记录实体,包括了直播视频地址和其他数据",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "直播记录唯一标示,需要和直播间号保持一致,因为在回放中也可以点赞发评论,将传递该id作为参数"
+    },
+    "title": {
+      "type": "string",
+      "description": "直播记录名称,就是房间名称"
+    },
+    "num_watched": {
+      "type": "integer",
+      "description": "点击观看的次数"
+    },
+    "video": {
+      "ref": "video/video",
+      "include": ["url","duration","thumbnail"]
+    },
+    "owner": {
+      "ref": "user/user",
+      "description": "主播信息"
+    },
+    "mdd": {
+      "ref": "mdd/mdd",
+      "include": ["id","name","parent"]
+    }
+  }
+}

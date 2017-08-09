@@ -1,0 +1,34 @@
+{
+  "type": "object",
+  "description": "大饼\\icons",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "common_icons"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string"
+              },
+              "icon": {
+                "type": "string"
+              },
+              "jump_url": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

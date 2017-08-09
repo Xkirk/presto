@@ -1,0 +1,77 @@
+{
+    "type": "object",
+    "description": "带标签的问答",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "questions"
+            ],
+            "description": "客户端的呈现样式"
+        },
+        "data": {
+            "type": "object",
+            "description": "数据",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "jump_url": {
+                    "type": "string",
+                    "description": "跳转链接"
+                },
+                "bottom": {
+                    "type": "string",
+                    "description": "查看更多 这样的文字"
+                },
+                "has_more": {
+                    "type": "integer",
+                    "description": "是否显示查看更多 0/1"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tag_name": {
+                                "type": "sting",
+                                "description": "tag名称"
+                            },
+                            "jump_url": {
+                                "type": "sting",
+                                "description": "tag下的jump url"
+                            },
+                            "list": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "title": {
+                                            "type": "string",
+                                            "description":"标题"
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "description": "内容信息"
+                                        },
+                                        "desc": {
+                                            "type": "string",
+                                            "description": "描述信息 **浏览**回答**顶，支持富文本"
+                                        },
+                                        "thumbnail": {
+                                            "type": "string"
+                                        },
+                                        "jump_url": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

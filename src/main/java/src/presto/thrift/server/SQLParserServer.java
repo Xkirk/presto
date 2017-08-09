@@ -13,7 +13,7 @@ import java.net.ServerSocket;
 
 public class SQLParserServer {
     public static void main(String[] args) throws IOException, TTransportException {
-        final int SERVER_PORT = 8090;
+        final int SERVER_PORT = 30017;
         ServerSocket socket = new ServerSocket(SERVER_PORT);
         TServerSocket serverTransport = new TServerSocket(socket);
         SQLParser.Processor processor = new SQLParser.Processor(new SQLParserImpl());

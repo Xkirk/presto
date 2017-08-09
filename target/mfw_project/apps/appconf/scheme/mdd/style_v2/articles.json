@@ -1,0 +1,57 @@
+{
+    "type": "object",
+    "description": "攻略文章style,使用场景:自由行攻略",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "articles"
+            ]
+        },
+        "data": {
+            "type": "object",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "模块头部标题"
+                },
+                "bottom":{
+                    "type":"string",
+                    "description":"底部文案，例如:查看更多"
+                },
+                "jump_url":{
+                    "type":"string",
+                    "description":"底部文案点击跳转链接"
+                },
+                "has_more":{
+                    "type":"integer",
+                    "description":"是否显示底部文案，0/1"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "string",
+                                "description": "标题"
+                            },
+                            "desc": {
+                                "type": "string",
+                                "description": "描述信息，支持富文本，例如：***浏览*赞"
+                            },
+                            "img_url": {
+                                "type": "string",
+                                "description": "文章图片url"
+                            },
+                            "jump_url": {
+                                "type": "string",
+                                "description": "跳转链接"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

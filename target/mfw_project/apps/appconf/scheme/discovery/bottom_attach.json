@@ -1,0 +1,12 @@
+{
+    "type": "array",
+    "description": "右下角附加信息",
+    "items": {
+        "ref": "discovery/attach",
+        "include": [
+            "text",
+            "has_image",
+            "is_bold"
+        ]
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "目的地id"
+    },
+    "name": {
+      "type": "string",
+      "description": "目的地名称"
+    },
+    "lat": {
+      "type": "number"
+    },
+    "lng": {
+      "type": "number"
+    },
+    "parent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "目的地id"
+        },
+        "name": {
+          "type": "string",
+          "description": "目的地名称"
+        }
+      }
+    }
+  }
+}

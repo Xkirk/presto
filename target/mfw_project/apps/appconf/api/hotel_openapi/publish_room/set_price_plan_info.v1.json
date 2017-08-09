@@ -1,0 +1,59 @@
+{
+  "title": "添加房型价格计划",
+  "login": true,
+  "method": "POST",
+  "input": {
+    "type": "object",
+    "properties": {
+      "room_id": {
+        "description": "房型id",
+        "type": "integer"
+      },
+      "update_param": {
+        "type": "string",
+        "description": "需要更新的key值,逗号分隔"
+      },
+      "date_list": {
+        "type": "string",
+        "description": "日期时间戳以逗号分隔"
+      },
+      "price": {
+        "type": "integer",
+        "description": "价格"
+      },
+      "room_num": {
+        "type": "integer",
+        "description": "房间数量"
+      },
+      "has_breakfast": {
+        "type": "integer",
+        "description": "是否含早"
+      },
+      "cancel_type": {
+        "type": "integer",
+        "description": "取消政策"
+      },
+      "can_book": {
+        "type": "integer",
+        "description": "是否可预订"
+      }
+    },
+    "required": [
+      "room_id"
+    ]
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "room_id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}

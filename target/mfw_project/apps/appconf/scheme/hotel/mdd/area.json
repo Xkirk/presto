@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "description": "各区域的攻略列表",
+  "properties": {
+    "id": {
+      "type": "integer"
+    },
+    "name": {
+      "type": "string"
+    },
+    "choice_percent": {
+      "type": "number",
+      "description": "精确到两位小数点"
+    },
+    "num_pois": {
+      "type": "integer",
+      "description": "酒店数"
+    },
+    "lat": {
+      "type": "number",
+      "description": "纬度"
+    },
+    "lng": {
+      "type": "number",
+      "description": "经度"
+    },
+    "star_tag_price": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "参考均价",
+        "properties": {
+          "star": {
+            "type": "integer",
+            "enum": [3,4,5],
+            "description": "星级, 3 三星级、4 四星级、5 五星级"
+          },
+          "star_name":{
+            "type": "string",
+            "description": "星级名称"
+          },
+          "price": {
+            "type": "number",
+            "description": "参考均价"
+          }
+        }
+      }
+    },
+    "region_gps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "lat": {
+            "type": "number"
+          },
+          "lng": {
+            "type": "number"
+          }
+        }
+      }
+    },
+    "desc_list": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "jump_url": {
+      "type": "string"
+    }
+  }
+}

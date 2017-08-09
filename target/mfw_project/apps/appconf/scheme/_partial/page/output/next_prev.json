@@ -1,0 +1,13 @@
+{
+  "description": "向上翻页的返回结构；向下翻页的返回结构",
+  "anyOf": [
+    {
+      "ref": "_partial/page/output/next_or_prev",
+      "description" : "翻页时"
+    },
+    {
+      "ref": "_partial/page/output/next_and_prev",
+      "description" : "请求contains时"
+    }
+  ]
+}

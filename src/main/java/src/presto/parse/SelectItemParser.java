@@ -77,18 +77,4 @@ public class SelectItemParser {
         }
         return selectItemsList;
     }
-//    public static void main(String[] args) {
-//        String sql = SQL.sql;
-//        SqlParser parser = new SqlParser();
-//        Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
-//        if (query != null) {
-//            parseQuery(query);
-//        }
-//        for (String item :
-//                selectItemsList) {
-//            System.out.println(item);
-//        }
-//    }
-
-//}
 }

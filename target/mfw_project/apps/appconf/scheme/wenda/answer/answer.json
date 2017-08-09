@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "description": "回答的基本实体",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "qid": {
+      "type": "string",
+      "description": "问题的id"
+    },
+    "content": {
+      "type": "string",
+      "description": "回答的内容"
+    },
+    "ctime": {
+      "type": "integer",
+      "description": "创建时间的时间戳"
+    }
+  }
+}

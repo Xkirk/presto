@@ -1,0 +1,154 @@
+{
+  "type": "object",
+  "description": "嗡嗡形式实体",
+  "properties": {
+    "data": {
+      "anyOf": [
+        {
+          "type": "object",
+	      "description": "style:weng_flow_2 / weng_selected",
+          "ref": "weng/weng"
+        },
+        {
+          "type": "object",
+          "description": "style:user_intro",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "bg_color": {
+              "type": "string"
+            },
+            "bg_startcolor": {
+              "type": "string"
+            },
+            "bg_endcolor": {
+              "type": "string"
+            },
+            "bg_img": {
+              "type": "string"
+            },
+            "jump_url": {
+              "type": "string"
+            },
+            "time": {
+              "type": "integer"
+            },
+            "items":{
+              "type": "array",
+              "items":{
+                "ref":"user/user"
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "style:gallery_brief_4",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "bg_color": {
+              "type": "string"
+            },
+            "bg_startcolor": {
+              "type": "string"
+            },
+            "bg_endcolor": {
+              "type": "string"
+            },
+            "bg_img": {
+              "type": "string"
+            },
+            "jump_url": {
+              "type": "string"
+            },
+            "time": {
+              "type": "integer"
+            },
+            "items":{
+              "type": "array",
+              "items":{
+                "ref": "weng/weng"
+              }
+            }
+          }
+        },
+        {
+          "type":"object",
+          "description": "style:user_recommend_weng_flow_2",
+          "properties":{
+            "user":{
+              "type": "object",
+              "ref": "user/user",
+              "additional": {
+                "weng_info": {
+                  "type": "object",
+                  "properties": {
+                    "num_wengs": {
+                      "type": "integer"
+                    },
+                    "num_liked": {
+                      "type": "integer"
+                    },
+                    "wengs": {
+                      "type": "array",
+                      "items": {
+                        "ref": "weng/weng",
+                        "exclude": ["owner", "fav_users", "replies"]
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "title": {
+              "type": "string"
+            },
+            "jump_url": {
+              "type": "string"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "style:weng_selected_header / weng_selected_group_header",
+          "properties": {
+            "title": {
+              "type": "string"
+            },
+            "subtitle": {
+              "type": "string"
+            },
+            "time": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "description": "style:weng_selected_group",
+          "properties": {
+            "wengs": {
+              "type": "array",
+              "items": {
+                "ref": "weng/weng",
+                "exclude": ["fav_users", "replies"]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "style": {
+      "type": "string"
+    }
+  }
+}

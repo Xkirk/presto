@@ -1,0 +1,145 @@
+{
+    "type": "object",
+    "description": "带标签的自由行商品",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "sales_with_theme"
+            ],
+            "description": "客户端的呈现样式"
+        },
+        "data": {
+            "type": "object",
+            "description": "数据",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "jump_url": {
+                    "type": "string",
+                    "description": "跳转链接"
+                },
+                "bottom": {
+                    "type": "string",
+                    "description": "查看更多 这样的文字"
+                },
+                "has_more": {
+                    "type": "integer",
+                    "description": "是否显示查看更多 0/1"
+                },
+                "top_banner": {
+                    "description": "顶部主题位",
+                    "ref": "_partial/banner",
+                    "include": [
+                        "img_url",
+                        "width",
+                        "height",
+                        "jump_url"
+                    ]
+                },
+                "bottom_banner": {
+                    "description": "末尾主题位",
+                    "ref": "_partial/banner",
+                    "include": [
+                        "img_url",
+                        "width",
+                        "height",
+                        "jump_url"
+                    ]
+                },
+                "item_bg_color": {
+                    "type": "string",
+                    "description": "主题背景色, 类似：#FED24B"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "tag_name": {
+                                "type": "sting",
+                                "description": "tag名称"
+                            },
+                            "jump_url": {
+                                "type": "sting",
+                                "description": "tag下的jump url"
+                            },
+                            "list": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "subtitle": {
+                                            "type": "string",
+                                            "description": "支持html,信息描述,例如:班期"
+                                        },
+                                        "bottom": {
+                                            "type": "string",
+                                            "description": "底部信息栏,例如：已售3"
+                                        },
+                                        "thumbnail": {
+                                            "type": "string"
+                                        },
+                                        "desc": {
+                                            "type": "string",
+                                            "description": "产品描述(左上角，如北京／北京出发)"
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "description": "机+酒等文字"
+                                        },
+                                        "features":{
+                                            "type":"array",
+                                            "description":"商品特色",
+                                            "items":{
+                                                "type":"object",
+                                                "properties":{
+                                                    "text":{
+                                                        "type":"string",
+                                                        "description":"特色描述"
+                                                    },
+                                                    "text_color":{
+                                                        "type":"string",
+                                                        "description":"文字颜色"
+                                                    },
+                                                    "bg_start_color":{
+                                                        "type":"string",
+                                                        "description":"文字背景开始颜色"
+                                                    },
+                                                    "bg_end_color":{
+                                                        "type":"string",
+                                                        "description":"文字背景结束颜色"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "price": {
+                                            "description": "产品价格",
+                                            "ref": "_partial/price",
+                                            "include": [
+                                                "number",
+                                                "type",
+                                                "suffix"
+                                            ]
+                                        },
+                                        "jump_url": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

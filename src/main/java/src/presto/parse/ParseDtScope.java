@@ -4,6 +4,7 @@ import com.facebook.presto.sql.parser.SqlParser;
 import com.facebook.presto.sql.tree.*;
 import src.presto.schema.DateScopeMap;
 import src.presto.schema.ScopeList;
+import src.presto.test.SQL;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,11 +19,17 @@ public class ParseDtScope {
     private static final String LESS_THAN_OR_EQUAL = "LESS_THAN_OR_EQUAL";
     private static final String GREATER_THAN = "GREATER_THAN";
     private static final String GREATER_THAN_OR_EQUAL = "GREATER_THAN_OR_EQUAL";
-    private static HashMap<String, ScopeList> dtScopte;
-
-    public static void main(String[] args) throws ParseException {
+    public static int getScope(String sql) throws ParseException {
+        HashMap<String, String> scopeMap = parseDtScope(sql);
+        int max = 0;
+        for (String key:scopeMap.keySet()) {
+            int scope = Integer.parseInt(scopeMap.get(key));
+            max = scope > max ? scope : max;
+        }
+        return max;
+    }
+    public static HashMap<String, String> parseDtScope(String sql) throws ParseException {
         HashMap<String, String> tb_scope = new HashMap<>();
-        String sql = SQL.sql1;
         SqlParser parser = new SqlParser();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
         DateScopeMap dateScopeMap = new DateScopeMap();
@@ -43,20 +50,23 @@ public class ParseDtScope {
             if (strList.size() > endList.size()) {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                endList.add(stringToUnixTime(sdf.format(date)));
+                for (int i = 0; i <=strList.size() - endList.size() ; i++) {
+                    endList.add(stringToUnixTime(sdf.format(date)));
+                }
             }
             if (strList.size() < endList.size()) {
-                strList.add((long) 0);
+                for (int i = 0; i <= endList.size() - strList.size() ; i++) {
+                    strList.add((long) 0);
+                }
             }
             long scope = 0;
             for (int i = 0; i < strList.size(); i++) {
                 scope += endList.get(i) - strList.get(i) + oneDay();
             }
-            System.out.println(key + ":" + String.valueOf(scope / 3600 / 24));
             tb_scope.put(key, String.valueOf(scope / 3600 / 24));
         }
+        return tb_scope;
     }
-
     /**
      * 解析Query
      *

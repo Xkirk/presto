@@ -1,0 +1,66 @@
+{
+    "type": "object",
+    "description": "视频列表",
+    "properties": {
+        "style": {
+            "type": "string",
+            "enum": [
+                "videos"
+            ],
+            "description": "客户端的呈现样式"
+        },
+        "data": {
+            "type": "object",
+            "description": "数据",
+            "properties": {
+                "title": {
+                    "type": "string",
+                    "description": "标题"
+                },
+                "jump_url": {
+                    "type": "string",
+                    "description": "跳转链接"
+                },
+                "bottom": {
+                    "type": "string",
+                    "description": "查看更多 这样的文字"
+                },
+                "has_more": {
+                    "type": "integer",
+                    "description": "是否显示查看更多 0/1"
+                },
+                "list": {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "title": {
+                                "type": "sting",
+                                "description": "视频标题"
+                            },
+                            "thumbnail": {
+                                "type": "string"
+                            },
+                            "user": {
+                                "ref": "user/user",
+                                "include": ["id","name","logo"],
+                                "description": "视频作者"
+                            },
+                            "duration": {
+                                "type": "int",
+                                "description": "视频时长"
+                            },
+                            "desc": {
+                                "type": "string",
+                                "description": "访问人数描述信息"
+                            },
+                            "jump_url": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

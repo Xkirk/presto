@@ -1,0 +1,35 @@
+{
+  "title": "删除房型图片",
+  "login": true,
+  "method": "POST",
+  "input": {
+    "type": "object",
+    "properties": {
+      "room_id": {
+        "description": "房型id",
+        "type": "integer"
+      },
+      "image_id": {
+        "type": "string",
+        "description": "图片的id"
+      }
+    },
+    "required": [
+      "room_id"
+    ]
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "room_id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}

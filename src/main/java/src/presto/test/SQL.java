@@ -1,4 +1,4 @@
-package src.presto.parse;
+package src.presto.test;
 
 /**
  * Created by kirk on 2017/7/12.

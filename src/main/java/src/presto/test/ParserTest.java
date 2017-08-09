@@ -1,8 +1,11 @@
-package src.presto.parse;
+package src.presto.test;
+
+import src.presto.parse.TableNameParser;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by kirk on 2017/7/19.
@@ -10,10 +13,17 @@ import java.util.Date;
 public class ParserTest {
     public static void main(String[] args) throws ParseException {
 //        stringToSDF();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd kk:mm:ss");
-        Date date = new Date();
-        String s= sdf.format(date);
-        System.out.println(s);
+        List<String> tables = TableNameParser.getTargetTables(SQL.sql1);
+
+        List<String> with = TableNameParser.getWithTables(SQL.sql1);
+        for (String tb:tables
+             ) {
+            System.out.println("target:"+tb);
+        }
+        for (String tb:with
+             ) {
+            System.out.println("with :"+ tb);
+        }
     }
 
     public static void  stringToSDF() throws ParseException {

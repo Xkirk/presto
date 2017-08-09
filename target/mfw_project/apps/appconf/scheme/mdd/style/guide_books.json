@@ -1,0 +1,79 @@
+{
+  "type": "object",
+  "description": "自由行攻略下载",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "guide_books"
+      ],
+      "description": "客户端的呈现样式"
+    },
+    "data": {
+      "type": "object",
+      "description": "数据",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "标题"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "bottom": {
+          "type": "string",
+          "description": "查看更多 这样的文字"
+        },
+        "has_more": {
+          "type": "boolean",
+          "description": "true 显示bottom"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer"
+              },
+              "title": {
+                "type": "string"
+              },
+              "sub_title": {
+                "type": "string"
+              },
+              "unique": {
+                "type": "array",
+                "description": "标签列表",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "cover": {
+                "type": "string",
+                "description": "文件预览图"
+              },
+              "utime": {
+                "type": "int",
+                "description": "时间"
+              },
+              "size": {
+                "type": "int",
+                "description": "文件大小:byte"
+              },
+              "file": {
+                "type": "string",
+                "description": "文件下载链接"
+              },
+              "ver": {
+                "type": "string",
+                "description": "文件版本"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

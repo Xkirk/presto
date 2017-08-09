@@ -1,0 +1,73 @@
+{
+  "type": "object",
+  "description": "目的地地图",
+  "properties": {
+    "style": {
+      "type": "string",
+      "enum": [
+        "map_mdd"
+      ]
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "模块标题"
+        },
+        "sub_title": {
+          "type": "string",
+          "description": "模块副标题"
+        },
+        "jump_url": {
+          "type": "string",
+          "description": "跳转链接"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "poi_id"
+              },
+              "name": {
+                "type": "string",
+                "description": "poi名称中文"
+              },
+              "foreign_name": {
+                "type": "string",
+                "description": "poi名称英文"
+              },
+              "lat": {
+                "type": "number",
+                "description": "gps:纬度"
+              },
+              "lng": {
+                "type": "number",
+                "description": "gps:经度"
+              },
+              "typical": {
+                "type": "string",
+                "description": "代表景点，一般取5个"
+              },
+              "num_have_been": {
+                "type": "int",
+                "description": "多少人去过"
+              },
+              "thumbnail": {
+                "type": "string",
+                "description": "缩略图url"
+              },
+              "jump_url": {
+                "type": "string",
+                "description": "跳转链接"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

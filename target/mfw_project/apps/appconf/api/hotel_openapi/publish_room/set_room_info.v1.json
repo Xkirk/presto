@@ -1,0 +1,73 @@
+{
+  "title": "添加酒店房型信息",
+  "login": true,
+  "method": "POST",
+  "input": {
+    "type": "object",
+    "properties": {
+      "hotel_id": {
+        "description": "酒店id",
+        "type": "integer"
+      },
+      "update_param": {
+        "type": "string",
+        "description": "需要更新的key值,逗号分隔"
+      },
+      "room_id": {
+        "description": "房型id",
+        "type": "integer"
+      },
+      "room_name": {
+        "type": "string",
+        "description": "房型名称"
+      },
+      "room_size": {
+        "type": "integer",
+        "description": "房型大小"
+      },
+      "image_list": {
+        "type": "string",
+        "description": "图片id，逗号分隔"
+      },
+      "people_num": {
+        "type": "integer",
+        "description": "房型人数"
+      },
+      "bed_type": {
+        "type": "integer",
+        "description": "房型床型"
+      },
+      "bed_num": {
+        "type": "integer"
+      },
+      "bed_size": {
+        "type": "integer"
+      },
+      "can_add_bed": {
+        "type": "integer",
+        "description": "是否可加床"
+      },
+      "room_facility_key_point": {
+        "type": "string",
+        "description": "房型设施特色"
+      }
+    },
+    "required": [
+      "hotel_id"
+    ]
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "room_id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}

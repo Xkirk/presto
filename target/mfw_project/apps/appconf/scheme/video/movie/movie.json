@@ -1,0 +1,64 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type" :"integer",
+      "description":"视频id"
+    },
+    "title": {
+      "type": "string",
+      "description" : "视频标题"
+    },
+    "thumbnail":{
+      "type": "string",
+      "description" : "视频缩略图"
+    },
+    "duration":{
+      "type": "number",
+      "description": "视频时长"
+    },
+    "num_visit":{
+      "type":"integer",
+      "description":"浏览数量"
+    },
+    "num_vote":{
+      "type": "integer",
+      "description": "顶的数量"
+    },
+    "num_comment":{
+      "type": "integer",
+      "description": "评论数量"
+    },
+    "is_voted": {
+      "type": "integer",
+      "description": "是否顶过"
+    },
+    "ctime":{
+      "type":"integer",
+      "description":"视频创建时间"
+    },
+    "badges": {
+      "type": "array",
+      "description": "视频标签",
+      "items": {
+        "type": "string",
+        "description": "标签链接"
+      }
+    },
+    "hd_video": {
+      "ref": "/video/video",
+      "description": "视频资源对象,高分辨率视频资源,宽高分辨率为16:9",
+      "include":["thumbnail","url","duration","filesize"]
+    },
+    "md_video":{
+      "ref":"/video/video",
+      "description" : "视频资源对象,中分辨率视频资源,宽高分辨率为16:9",
+      "include":["thumbnail","url","duration","filesize"]      
+      },
+    "ld_video":{
+      "ref":"/video/video",
+      "description":"视频资源对象，低分辨率视频资源,宽高分辨率为16:9",
+      "include":["thumbnail","url","duration","filesize"]
+    }
+  }
+}

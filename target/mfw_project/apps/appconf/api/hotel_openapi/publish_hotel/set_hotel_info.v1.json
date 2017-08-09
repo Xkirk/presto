@@ -1,0 +1,76 @@
+{
+  "title": "设置酒店信息",
+  "login": true,
+  "method": "POST",
+  "input": {
+    "type": "object",
+    "properties": {
+      "hotel_id": {
+        "description": "酒店id",
+        "type": "integer"
+      },
+      "update_param": {
+        "type": "string",
+        "description": "需要更新的key值,逗号分隔"
+      },
+      "foreign_name": {
+        "type": "string",
+        "description": "英文名称"
+      },
+      "h_lng": {
+        "type": "number",
+        "description": "酒店经度"
+      },
+      "h_lat": {
+        "type": "number",
+        "description": "酒店纬度"
+      },
+      "h_address": {
+        "type": "string",
+        "description": "酒店详细地址"
+      },
+      "key_point": {
+        "type": "string",
+        "description": "酒店亮点描述"
+      },
+      "desc": {
+        "type": "string",
+        "description": "酒店必读攻略"
+      },
+      "facility_key_point": {
+        "type": "string",
+        "description": "亮点设施"
+      },
+      "check_in_start": {
+        "type": "string",
+        "description": "最早入住时间"
+      },
+      "check_out_end": {
+        "type": "string",
+        "description": "最晚离店时间"
+      },
+      "front_service_start": {
+        "type": "string",
+        "description": "营业时间开始"
+      },
+      "front_service_end": {
+        "type": "string",
+        "description": "营业时间结束"
+      }
+    }
+  },
+  "output": [
+    {
+      "code": 0,
+      "message": "",
+      "data": {
+        "type": "object",
+        "properties": {
+          "hotel_id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  ]
+}
