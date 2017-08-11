@@ -21,7 +21,7 @@ public class LimitVerify {
             parseQuery(query);
         }
         if (!limitFlag) {
-            sql = sql + "\n" + "limit 50000";
+            sql = sql + "\n" + "limit 50001";
         }
         Date data = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd kk:mm:ss");

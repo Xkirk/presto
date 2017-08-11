@@ -1,5 +1,7 @@
 package src.presto.test;
 
+import src.presto.parse.ParseDtScope;
+import src.presto.parse.SelectItemParser;
 import src.presto.parse.TableNameParser;
 
 import java.text.ParseException;
@@ -12,10 +14,11 @@ import java.util.List;
  */
 public class ParserTest {
     public static void main(String[] args) throws ParseException {
-//        stringToSDF();
+//        dateScope();
         List<String> tables = TableNameParser.getTargetTables(SQL.sql1);
 
         List<String> with = TableNameParser.getWithTables(SQL.sql1);
+        List<String> selectList = SelectItemParser.parseSelectItems(SQL.sql1);
         for (String tb:tables
              ) {
             System.out.println("target:"+tb);
@@ -24,14 +27,16 @@ public class ParserTest {
              ) {
             System.out.println("with :"+ tb);
         }
+        for (String item:selectList
+                ) {
+            System.out.println("Item :"+ item);
+        }
+//        dateScope();
     }
 
-    public static void  stringToSDF() throws ParseException {
-        String dsf = "yyyyMMdd";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dsf);
-        long rs = (simpleDateFormat.parse("20110301").getTime() / 1000) - (simpleDateFormat.parse("20100301").getTime() / 1000);
-
-        System.out.println(rs/3600/24);
-
-    }
+//    public static void  dateScope() throws ParseException {
+//        String sql = SQL.sql1;
+//        ParseDtScope.parseDtScope(sql);
+//        System.out.println(        ParseDtScope.parseDtScope(sql).toString());
+//    }
 }

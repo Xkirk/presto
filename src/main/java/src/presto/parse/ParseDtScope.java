@@ -32,6 +32,7 @@ public class ParseDtScope {
         HashMap<String, String> tb_scope = new HashMap<>();
         SqlParser parser = new SqlParser();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
+        System.out.println(query.toString());
         DateScopeMap dateScopeMap = new DateScopeMap();
         if (query != null) {
             HashMap<String, ScopeList> dtscope = new HashMap<>();
