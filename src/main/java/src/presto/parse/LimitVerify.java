@@ -15,6 +15,7 @@ public class LimitVerify {
 
     static Boolean limitFlag;
     public static String limitVerify(String sql) {
+        limitFlag = true;
         SqlParser parser = new SqlParser();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
         if (query != null) {

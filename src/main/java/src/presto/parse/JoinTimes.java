@@ -2,7 +2,7 @@ package src.presto.parse;
 
 import com.facebook.presto.sql.parser.SqlParser;
 import com.facebook.presto.sql.tree.*;
-import src.presto.test.SQL;
+import src.presto.utils.DateUtil;
 
 import java.util.List;
 import java.util.Optional;
@@ -31,6 +31,7 @@ public class JoinTimes {
         if (query != null) {
             parseQuery(query);
         }
+        System.out.println(DateUtil.getCurDT()+"\nAPI:getJoinTimes\nsql:\n"+sql+"\nresult:"+joinTimes);
         return joinTimes;
     }
 

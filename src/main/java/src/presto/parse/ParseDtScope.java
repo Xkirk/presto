@@ -2,9 +2,12 @@ package src.presto.parse;
 
 import com.facebook.presto.sql.parser.SqlParser;
 import com.facebook.presto.sql.tree.*;
+import com.google.common.collect.Iterables;
 import src.presto.schema.DateScopeMap;
 import src.presto.schema.ScopeList;
-import src.presto.test.SQL;
+import src.presto.utils.DateFormatFncParser;
+import src.presto.utils.DateUtil;
+import src.presto.utils.StringUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,20 +22,21 @@ public class ParseDtScope {
     private static final String LESS_THAN_OR_EQUAL = "LESS_THAN_OR_EQUAL";
     private static final String GREATER_THAN = "GREATER_THAN";
     private static final String GREATER_THAN_OR_EQUAL = "GREATER_THAN_OR_EQUAL";
+
     public static int getScope(String sql) throws ParseException {
         HashMap<String, String> scopeMap = parseDtScope(sql);
         int max = 0;
-        for (String key:scopeMap.keySet()) {
+        for (String key : scopeMap.keySet()) {
             int scope = Integer.parseInt(scopeMap.get(key));
             max = scope > max ? scope : max;
         }
         return max;
     }
+
     public static HashMap<String, String> parseDtScope(String sql) throws ParseException {
         HashMap<String, String> tb_scope = new HashMap<>();
         SqlParser parser = new SqlParser();
         Query query = parser.createStatement(sql) instanceof Query ? (Query) parser.createStatement(sql) : null;
-        System.out.println(query.toString());
         DateScopeMap dateScopeMap = new DateScopeMap();
         if (query != null) {
             HashMap<String, ScopeList> dtscope = new HashMap<>();
@@ -51,12 +55,12 @@ public class ParseDtScope {
             if (strList.size() > endList.size()) {
                 Date date = new Date();
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-                for (int i = 0; i <=strList.size() - endList.size() ; i++) {
+                for (int i = 0; i <= strList.size() - endList.size(); i++) {
                     endList.add(stringToUnixTime(sdf.format(date)));
                 }
             }
             if (strList.size() < endList.size()) {
-                for (int i = 0; i <= endList.size() - strList.size() ; i++) {
+                for (int i = 0; i <= endList.size() - strList.size(); i++) {
                     strList.add((long) 0);
                 }
             }
@@ -66,8 +70,10 @@ public class ParseDtScope {
             }
             tb_scope.put(key, String.valueOf(scope / 3600 / 24));
         }
+        System.out.println(DateUtil.getCurDT() + "\nAPI:parseDtScope\nsql:" + sql + "\n" + tb_scope);
         return tb_scope;
     }
+
     /**
      * 解析Query
      *
@@ -290,6 +296,7 @@ public class ParseDtScope {
      * @param where
      */
     private static void parseWhere(Optional<Expression> where, Optional<Relation> from, DateScopeMap dateScopeMap) {
+
         Expression expression = where.get();
         Relation relation = from.get();
         if (dateScopeMap.getAliasMap() != null) dateScopeMap.getAliasMap().clear();
@@ -466,17 +473,29 @@ public class ParseDtScope {
      * @param comparisonExpression
      */
     private static void parseStringLiteral(DateScopeMap dateScopeMap, ComparisonExpression comparisonExpression) {
-        if (comparisonExpression.getRight() instanceof StringLiteral) {
+        String type = comparisonExpression.getType().toString();
+        Expression leftCompExps = comparisonExpression.getLeft();
+        Expression rightCompExps = comparisonExpression.getRight();
+        String dateValue = "";
+        String tableName = "undefine";
+        if (leftCompExps instanceof DereferenceExpression) {
+            DereferenceExpression dereferenceExpression = (DereferenceExpression) leftCompExps;
+            Identifier alias = (Identifier) dereferenceExpression.getBase();
+            tableName = dateScopeMap.getTableNameByAlias(alias.getName());
+        }
+        if (rightCompExps instanceof StringLiteral) {
             StringLiteral stringLiteral = (StringLiteral) comparisonExpression.getRight();
-            Expression leftCompExps = comparisonExpression.getLeft();
-            String tableName = "undefine";
-            String type = comparisonExpression.getType().toString();
-            String dateValue = stringLiteral.getValue();
-            if (leftCompExps instanceof DereferenceExpression) {
-                DereferenceExpression dereferenceExpression = (DereferenceExpression) leftCompExps;
-                Identifier alias = (Identifier) dereferenceExpression.getBase();
-                tableName = dateScopeMap.getTableNameByAlias(alias.getName());
-            }
+            dateValue = stringLiteral.getValue();
+        }
+        if (rightCompExps instanceof FunctionCall) {
+            FunctionCall functionCall = (FunctionCall) comparisonExpression.getRight();
+            String fnc = functionCall.toString();
+//            fnc = StringUtil.trimFirstAndLastChar(fnc, '\"');
+            fnc = fnc.replaceAll("\"","");
+            dateValue = new DateFormatFncParser().dateFucParser(fnc);
+        }
+        if (dateValue != null && !dateValue.equalsIgnoreCase("")) {
+
             HashMap<String, ScopeList> dtScopte = dateScopeMap.getDtScope();
             ScopeList scopeList = dtScopte.get(tableName) == null ? new ScopeList() : dtScopte.get(tableName);
             try {
@@ -502,6 +521,7 @@ public class ParseDtScope {
             }
         }
     }
+
     //-----------------------------------------表达式解析部分结束-----------------------------------------------
 
     //-------------------------------------逻辑树二叉树递归解析部分开始-------------------------------------------

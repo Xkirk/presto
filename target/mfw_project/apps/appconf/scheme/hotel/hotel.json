@@ -1,9 +1,0 @@
-{
-  "ref": "poi/poi",
-  "additional": {
-    "price": {
-      "type": "integer",
-      "description": "价格"
-    }
-  }
-}

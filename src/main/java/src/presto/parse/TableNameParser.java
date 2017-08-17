@@ -239,6 +239,10 @@ public class TableNameParser {
                 AliasedRelation aliasedRelation = (AliasedRelation) relation;
                 parseAliasedRelation(aliasedRelation);
             }
+            if (relation instanceof TableSubquery) {
+                TableSubquery tableSubquery = (TableSubquery) relation;
+                parseTableSubQuery(tableSubquery);
+            }
         }
     }
 
